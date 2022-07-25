@@ -6,7 +6,7 @@ For the Week 6 Lab, we will add authentication to the TODO app. To do this, we w
 
 ## Installation
 
-In the `backend` directory:
+In the server directory:
 
 `npm install --save express-basic-auth`
 
@@ -155,11 +155,11 @@ app.get("/logout", (req, res) => {
 
 We can now make the other endpoints authenticated by adding the `cookieAuth` middleware which will check for the signed cookie:
 
-> app.post("/items", cookieAuth, addItem);
+> app.post("/add/item", cookieAuth, addItem);
 >
-> app.get("/items", cookieAuth, getItems);
+> app.get("/get/items", cookieAuth, getItems);
 >
-> app.get("/items/search", cookieAuth, searchItems);
+> app.get("/get/searchitem", cookieAuth, searchItems);
 
 ## Frontend setup
 
@@ -169,7 +169,6 @@ Update App.js to add a login screen:
 
 ```
 import * as api from './services/api';
-import React, { useState } from 'react';
 
     ...
 
@@ -252,12 +251,12 @@ export const createUser = async (username, password) => {
 
 These two functions interact with the API and send the username and password to be validated. Users can now log in, but for the cookies to be sent we need to add the `withCredentials` flag for Axios.
 
-For example, on the call to `/item`:
+For example, on the call to `/add/item`:
 
 ```
     Axios({
       method: "POST",
-      url: "http://localhost:8080/item",
+      url: "http://localhost:8080/add/item",
       data: {jsonObject},
       headers: {
         "Content-Type": "application/json"
